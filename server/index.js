@@ -58,7 +58,14 @@ app.post('/api/employees', async (req, res) => {
 });
 
 app.get('/api/employees/:id', async (req, res) => {
-    
+    const { id } = req.params;
+    try {
+        const result = await pool.query(`SELECT * FROM employees where employees.id = $1;`, [id]);
+        res.status(200).json(result.rows[0]);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Internal server error' });
+    }
 });
 
 app.listen(PORT, () => {
