@@ -16,17 +16,35 @@ const pool = new Pool({
 
 const app = express();
 app.use(cors());
+app.use(express.json());
 const PORT = 3000;
 
 app.get('/api/test', async (req, res) => {
     try {
-        const result = await pool.query('SELECT * FROM test_users');
+        const result = await pool.query('SELECT * FROM employees');
         res.status(200).json(result.rows);
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Internal server error' });
     }
 });
+
+app.post('/api/login', async (req, res) => {
+    const { username, password } = req.body;
+    try {
+        const result = await pool.query('SELECT id FROM employees WHERE username = $1 AND password = $2', [username, password]);
+        if (result.rows.length > 0) {
+            res.status(200).json({ id: result.rows[0].id });
+        } else {
+            res.status(401).json({ message: 'Authentication failed' });
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+// TODO: Register endpoint?
 
 app.listen(PORT, () => {
     console.log(`The server is running on http://localhost:${PORT}`)
