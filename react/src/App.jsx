@@ -13,25 +13,6 @@ import {
 
 
 function App() {
-  const [data, setData] = useState([])
-
-  useEffect(() => {
-    const fetchData = async () => {
-        try {
-            const response = await fetch(`http://localhost:3000/api/employees`);
-            if (!response.ok) {
-                throw new Error('Data could not be fetched!');
-            }
-            const json_response = await response.json();
-            setData(json_response); 
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    };
-
-    fetchData();
-}, []);
-
   return (
     <>
     <Router>
@@ -39,8 +20,12 @@ function App() {
       <h1>Employee Directory</h1>
         <AuthProvider>
           <Routes>
-              <Route path= "/" element = {<Home data={data}/>} />
-              <Route path="/Login" element={<LoginForm />}/>
+              <Route path= "/" element = {
+                <RequireAuth>
+                  <Home/>
+                </RequireAuth>
+              } />
+              <Route path="/login" element={<LoginForm />}/>
             
               
           

@@ -11,8 +11,7 @@ function LoginForm() {
     const handleLogin = async (event) => {
         event.preventDefault();
         await login(username, password);
-        console.log(username, password);
-        navigate('/add');
+        navigate('/');
     };
 
     return (

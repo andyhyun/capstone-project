@@ -20,7 +20,8 @@ export const AuthProvider = ({ children }) => {
             if (data.id) {
                 setUser({
                     username,
-                    id: data.id 
+                    id: data.id,
+                    is_hr: data.is_hr
                 });
             } else {
                 throw new Error(data.message || 'Login failed');

@@ -46,7 +46,8 @@ app.post('/api/login', async (req, res) => {
 
 // TODO: Register endpoint?
 
-app.get('/api/employees', async (req, res) => {
+app.post('/api/employees', async (req, res) => {
+    const { id, is_hr } = req.body;
     try {
         const result = await pool.query(`SELECT * FROM employees;`);
         res.status(200).json(result.rows);
@@ -54,6 +55,10 @@ app.get('/api/employees', async (req, res) => {
         console.error(err);
         res.status(500).json({ message: 'Internal server error' });
     }
+});
+
+app.get('/api/employees/:id', async (req, res) => {
+    
 });
 
 app.listen(PORT, () => {
