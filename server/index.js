@@ -46,6 +46,16 @@ app.post('/api/login', async (req, res) => {
 
 // TODO: Register endpoint?
 
+app.get('/api/employees', async (req, res) => {
+    try {
+        const result = await pool.query(`SELECT * FROM employees;`);
+        res.status(200).json(result.rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`The server is running on http://localhost:${PORT}`)
 });
