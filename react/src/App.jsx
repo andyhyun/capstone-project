@@ -4,6 +4,8 @@ import RequireAuth from '../components/RequireAuth'
 import './App.css'
 import LoginForm from '../components/LoginForm'
 import Home from '../components/Home'
+import Profile from '../components/Profile'
+import Search from '../components/Search'
 import {
   BrowserRouter as Router,
   Route,
@@ -15,10 +17,11 @@ import {
 function App() {
   return (
     <>
+    <AuthProvider>
+
     <Router>
       <div>
       <h1>Employee Directory</h1>
-        <AuthProvider>
           <Routes>
               <Route path= "/" element = {
                 <RequireAuth>
@@ -26,13 +29,11 @@ function App() {
                 </RequireAuth>
               } />
               <Route path="/login" element={<LoginForm />}/>
-            
-              
-          
+              <Route path='/profile' element={<Profile /> } />
           </Routes>
-        </AuthProvider>
       </div>
       </Router>
+      </AuthProvider>
     </>
   )
 }

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Employee from "./Employee";
 import { useAuth } from "../hooks/AuthContext";
+import Search from "./Search";
 
 const Home = (props) => {
     const [data, setData] = useState([])
@@ -37,6 +38,7 @@ const Home = (props) => {
                     <Employee key={employee.id} data={employee} />
                 ))
             }
+            <Search setData={setData}/>
         </div>
     );
 };
