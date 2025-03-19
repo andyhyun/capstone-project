@@ -19,7 +19,8 @@ const insertIntoManagerEmployeesTable = async () => {
         INSERT INTO manager_employees
             (manager_id, employee_id)
         VALUES
-            (4, 1);
+            (4, 1),
+            (4, 2);
     `;
     const result = await pool.query(query);
     return result;

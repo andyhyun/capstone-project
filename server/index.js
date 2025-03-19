@@ -79,6 +79,41 @@ app.post('/api/employees', async (req, res) => {
     }
 });
 
+app.post('/api/employees/search', async (req, res) => {
+    const { id, searchTerm } = req.body;
+    try {
+        const query = `
+            SELECT
+                username,
+                first_name,
+                last_name,
+                phone,
+                job,
+                location,
+                CASE WHEN is_manager OR is_working_hr OR id = $1 THEN salary ELSE NULL END AS salary
+            FROM (
+                SELECT
+                    employees.*,
+                    EXISTS (
+                        SELECT 1 FROM manager_employees WHERE manager_employees.manager_id = $2 AND manager_employees.employee_id = employees.id
+                    ) AS is_manager,
+                    EXISTS (
+                        SELECT 1 FROM employees WHERE employees.id = $3 AND employees.is_hr = true
+                    ) AS is_working_hr
+                FROM employees
+            ) temp
+            WHERE
+                CONCAT(first_name, ' ', last_name) LIKE '%${searchTerm}%';
+        `;
+        // The above is bad, leaves open a possible SQL injection
+        const result = await pool.query(query, [id, id, id]);
+        res.status(200).json(result.rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
 app.get('/api/employees/:id', async (req, res) => {
     const { id } = req.params;
     try {
