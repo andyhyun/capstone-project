@@ -48,7 +48,7 @@ app.post('/api/login', async (req, res) => {
 // TODO: Search endpoint
 
 app.post('/api/employees', async (req, res) => {
-    const { id } = req.body;
+    const { id, page } = req.body;
     try {
         const query = `
             SELECT
@@ -69,9 +69,11 @@ app.post('/api/employees', async (req, res) => {
                         SELECT 1 FROM employees WHERE employees.id = $3 AND employees.is_hr = true
                     ) AS is_working_hr
                 FROM employees
-            ) temp;
+            ) temp
+            LIMIT 10
+            OFFSET $4;
         `;
-        const result = await pool.query(query, [id, id, id]);
+        const result = await pool.query(query, [id, id, id, 10 * (page - 1)]);
         res.status(200).json(result.rows);
     } catch (err) {
         console.error(err);
@@ -80,7 +82,7 @@ app.post('/api/employees', async (req, res) => {
 });
 
 app.post('/api/employees/search', async (req, res) => {
-    const { id, searchTerm } = req.body;
+    const { id, searchTerm, page } = req.body;
     try {
         const query = `
             SELECT
@@ -103,10 +105,10 @@ app.post('/api/employees/search', async (req, res) => {
                 FROM employees
             ) temp
             WHERE
-                CONCAT(first_name, ' ', last_name) LIKE '%${searchTerm}%';
+                CONCAT(first_name, ' ', last_name) LIKE $4
+            LIMIT 10 OFFSET $5;
         `;
-        // The above is bad, leaves open a possible SQL injection
-        const result = await pool.query(query, [id, id, id]);
+        const result = await pool.query(query, [id, id, id, `%${searchTerm}%`, 10 * (page - 1)]);
         res.status(200).json(result.rows);
     } catch (err) {
         console.error(err);

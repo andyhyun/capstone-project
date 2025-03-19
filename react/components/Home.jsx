@@ -17,7 +17,7 @@ const Home = (props) => {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ id: user.id, is_hr: user.is_hr }),
+                    body: JSON.stringify({ id: user.id, is_hr: user.is_hr, page: currentPage }),
                 });
                 if (!response.ok) {
                     throw new Error('Data could not be fetched!');
@@ -30,14 +30,15 @@ const Home = (props) => {
         };
 
         fetchData();
-    }, [user]);
+    }, [user, currentPage]);
 
     
 
-    const totalPages = Math.ceil(data.length / employeesPerPage);
+    // const totalPages = Math.ceil(data.length / employeesPerPage);
 
     const nextPage = () => {
-        if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+        // if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+        setCurrentPage(currentPage + 1);
     };
 
     const prevPage = () => {
@@ -48,7 +49,7 @@ const Home = (props) => {
         <div className="card-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
             {
                 data.map((employee) => (
-                    <Employee key={employee.id} data={employee} />
+                    <Employee key={employee.id} data={employee} currentPage={currentPage} />
                 ))
             }
             <Search setData={setData}/>
@@ -57,9 +58,11 @@ const Home = (props) => {
                     Previous
                 </button>
                 <span style={{ margin: "0 10px" }}>
-                    Page {currentPage} of {totalPages}
+                    {/* Page {currentPage} of {totalPages} */}
+                    Page {currentPage}
                 </span>
-                <button onClick={nextPage} disabled={currentPage === totalPages}>
+                <button onClick={nextPage}>
+                {/* <button onClick={nextPage} disabled={currentPage === totalPages}> */}
                     Next
                 </button>
             </div>
