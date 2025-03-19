@@ -32,9 +32,9 @@ app.get('/api/test', async (req, res) => {
 app.post('/api/login', async (req, res) => {
     const { username, password } = req.body;
     try {
-        const result = await pool.query('SELECT id FROM employees WHERE username = $1 AND password = $2', [username, password]);
+        const result = await pool.query('SELECT id, is_hr FROM employees WHERE username = $1 AND password = $2', [username, password]);
         if (result.rows.length > 0) {
-            res.status(200).json({ id: result.rows[0].id });
+            res.status(200).json({ id: result.rows[0].id, is_hr: result.rows[0].is_hr });
         } else {
             res.status(401).json({ message: 'Authentication failed' });
         }
@@ -45,11 +45,33 @@ app.post('/api/login', async (req, res) => {
 });
 
 // TODO: Register endpoint?
+// TODO: Search endpoint
 
 app.post('/api/employees', async (req, res) => {
-    const { id, is_hr } = req.body;
+    const { id } = req.body;
     try {
-        const result = await pool.query(`SELECT * FROM employees;`);
+        const query = `
+            SELECT
+                username,
+                first_name,
+                last_name,
+                phone,
+                job,
+                location,
+                CASE WHEN is_manager OR is_working_hr OR id = $1 THEN salary ELSE NULL END AS salary
+            FROM (
+                SELECT
+                    employees.*,
+                    EXISTS (
+                        SELECT 1 FROM manager_employees WHERE manager_employees.manager_id = $2 AND manager_employees.employee_id = employees.id
+                    ) AS is_manager,
+                    EXISTS (
+                        SELECT 1 FROM employees WHERE employees.id = $3 AND employees.is_hr = true
+                    ) AS is_working_hr
+                FROM employees
+            ) temp;
+        `;
+        const result = await pool.query(query, [id, id, id]);
         res.status(200).json(result.rows);
     } catch (err) {
         console.error(err);
