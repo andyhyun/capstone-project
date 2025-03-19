@@ -1,16 +1,24 @@
 import { useState, useEffect } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { AuthProvider } from '../hooks/AuthContext'
+import RequireAuth from '../components/RequireAuth'
 import './App.css'
+import LoginForm from '../components/LoginForm'
+import Home from '../components/Home'
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Link
+} from "react-router-dom";
 
 
 function App() {
-  const [data, setData] = useState({})
+  const [data, setData] = useState([])
 
   useEffect(() => {
     const fetchData = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/api/test`);
+            const response = await fetch(`http://localhost:3000/api/employees`);
             if (!response.ok) {
                 throw new Error('Data could not be fetched!');
             }
@@ -26,10 +34,20 @@ function App() {
 
   return (
     <>
+    <Router>
       <div>
-        <h1>Data from API</h1>
-        {data[0]?.username}
+      <h1>Employee Directory</h1>
+        <AuthProvider>
+          <Routes>
+              <Route path= "/" element = {<Home data={data}/>} />
+              <Route path="/Login" element={<LoginForm />}/>
+            
+              
+          
+          </Routes>
+        </AuthProvider>
       </div>
+      </Router>
     </>
   )
 }
