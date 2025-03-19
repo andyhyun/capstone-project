@@ -6,7 +6,16 @@ const Employee = (props) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/api/test`);
+                const response = await fetch(`http://localhost:5000/api/predict`, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        job: [props?.data.job],
+                        location: [props?.data.location]
+                    }),
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
                 if (!response.ok) {
                     throw new Error("Failed to fetch user data");
                 }
@@ -30,7 +39,7 @@ const Employee = (props) => {
                 <div className="card-text">Location: {props?.data.location}</div>
                 <div className="card-text">Job Role: {props?.data.job}</div>
                 <div className="card-text">Salary: {props?.data.salary}</div>
-                <div className="card-text">Flask Data: {flaskData.message}</div>
+                <div className="card-text">Predicted Salary: {flaskData.prediction}</div>
             </div>
             
         </div>
