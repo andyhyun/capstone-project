@@ -12,7 +12,8 @@ const createEmployeesTable = async () => {
             job VARCHAR NOT NULL,
             location VARCHAR NOT NULL,
             salary INTEGER NOT NULL,
-            is_hr BOOLEAN NOT NULL
+            is_hr BOOLEAN NOT NULL,
+            gender VARCHAR NOT NULL
         );
     `;
     const result = await pool.query(query);

@@ -33,13 +33,14 @@ const Employee = (props) => {
     
         useEffect(() => {
             // Fetch a random user's picture
-            fetch("https://randomuser.me/api/")
+            console.log(props?.data.gender);
+            fetch(`https://randomuser.me/api/?gender=${props?.data.gender.toLowerCase()}`)
                 .then((response) => response.json())
                 .then((result) => {
                     setProfilePic(result.results[0].picture.large);
                 })
                 .catch((error) => console.error("Error fetching profile picture:", error));
-        }, []);
+        }, [props.data]);
 
     return (
         <div className="card" style={{ flex: '1', minWidth: '300px', maxWidth: '45%' }}>

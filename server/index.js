@@ -59,6 +59,7 @@ app.post('/api/employees', async (req, res) => {
                 phone,
                 job,
                 location,
+                gender,
                 CASE WHEN is_manager OR is_working_hr OR id = $1 THEN salary ELSE NULL END AS salary
             FROM (
                 SELECT
@@ -94,6 +95,7 @@ app.post('/api/employees/search', async (req, res) => {
                 phone,
                 job,
                 location,
+                gender,
                 CASE WHEN is_manager OR is_working_hr OR id = $1 THEN salary ELSE NULL END AS salary
             FROM (
                 SELECT
