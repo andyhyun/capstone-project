@@ -7,7 +7,7 @@ const insertIntoEmployeesTable = async () => {
         VALUES
             ('andy', 'password123', 'Andy', 'Kim', '(432) 564-7890', 'Data Engineer', 'Hartford', '85000', False),
              ('vincent', 'password123', 'Vincent', 'Loria', '860-213-5665', 'Cyber', 'Hartford', '180000', False),
-            ('larry', 'password123', 'Larry', 'Pautz', '301-702-9892', 'HR Representative', 'St. Paul', '1000000', True),
+            ('larry', 'password123', 'Larry', 'Pautz', '301-702-9892', 'HR Representative', 'St. Paul', '100000', True),
             ('florenced', 'password123', 'Florence', 'Denny', '309-213-5665', 'Software Engineer', 'Hartford', '180000', False);
     `;
     const result = await pool.query(query);

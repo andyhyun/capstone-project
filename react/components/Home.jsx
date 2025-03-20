@@ -54,21 +54,20 @@ const Home = (props) => {
                     <Employee key={employee.id} data={employee} currentPage={currentPage} />
                 ))
             }
-            <div style={{ marginTop: "20px", textAlign: "center" }}>
-                <button onClick={prevPage} disabled={currentPage === 1}>
-                    Previous
-                </button>
-                <span style={{ margin: "0 10px" }}>
-                    {/* Page {currentPage} of {totalPages} */}
-                    Page {currentPage}
-                </span>
-                <button onClick={nextPage}>
-                {/* <button onClick={nextPage} disabled={currentPage === totalPages}> */}
-                    Next
-                </button>
             </div>
+            <footer style={{ marginTop: "20px", textAlign: "center", padding: "10px", borderTop: "1px solid #ccc" }}>
+        <button onClick={prevPage} disabled={currentPage === 1}>
+            Previous
+        </button>
+        <span style={{ margin: "0 10px" }}> 
+            Page {currentPage}
+        </span>
+        <button onClick={nextPage}>
+            Next
+        </button>
+    </footer>
         </div>
-     </div>
+     
     );
 };
 

@@ -18,7 +18,7 @@ function App() {
 
     <Router>
       <div>
-      <h1>Employee Directory</h1>
+      <h1>Hackstreet Boys Directory</h1>
           <Routes>
               <Route path= "/" element = {
                 <RequireAuth>
