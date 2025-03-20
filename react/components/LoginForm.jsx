@@ -15,7 +15,7 @@ function LoginForm() {
     };
 
     return (
-        <div className="container card mt-5" style={{ backgroundColor: "#e3f0fa" }}>
+        <div className="container card shadow mt-5" style={{ backgroundColor: "#e3f0fa" }}>
             <h2>Log In</h2>
             <form onSubmit={handleLogin} className="mt-1">
                 <div className="form-group mb-3">
