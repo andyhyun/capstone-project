@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Employee from "./Employee";
 import { useAuth } from "../hooks/AuthContext";
 import Search from "./Search";
+import background from '../src/img/BackstreetBoys.jpg'
 
 const Home = (props) => {
     const [data, setData] = useState([])
@@ -46,7 +47,7 @@ const Home = (props) => {
     };
 
     return (
-        <div>
+        <div  style={{ backgroundImage: `url(${background})` }}>
         <Search setData={setData} currentPage={currentPage} />
         <div className="card-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
             {

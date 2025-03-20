@@ -4,6 +4,7 @@ import './App.css'
 import LoginForm from '../components/LoginForm'
 import Home from '../components/Home'
 import Profile from '../components/Profile'
+import background from '../src/img/BackstreetBoys.jpg'
 import {
   BrowserRouter as Router,
   Route,
