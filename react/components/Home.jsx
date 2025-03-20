@@ -46,13 +46,14 @@ const Home = (props) => {
     };
 
     return (
+        <div>
+        <Search setData={setData} currentPage={currentPage} />
         <div className="card-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
             {
                 data.map((employee) => (
                     <Employee key={employee.id} data={employee} currentPage={currentPage} />
                 ))
             }
-            <Search setData={setData} currentPage={currentPage} />
             <div style={{ marginTop: "20px", textAlign: "center" }}>
                 <button onClick={prevPage} disabled={currentPage === 1}>
                     Previous
@@ -67,6 +68,7 @@ const Home = (props) => {
                 </button>
             </div>
         </div>
+     </div>
     );
 };
 
