@@ -54,7 +54,7 @@ const Employee = (props) => {
                 )}
                 <h4 className="card-title">{props?.data.first_name} {props?.data.last_name}</h4>
                 <div className="card-text">Username: {props?.data.username}</div>
-                <div className="card-text">Phone Number:{props?.data.phone} </div>
+                <div className="card-text">Phone Number: {props?.data.phone} </div>
                 <div className="card-text">Location: {props?.data.location}</div>
                 <div className="card-text">Job Role: {props?.data.job}</div>
                 <div className="card-text">Salary: {props?.data.salary ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(props?.data.salary) : '$******'}</div>
