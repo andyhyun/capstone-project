@@ -15,8 +15,9 @@ function LoginForm() {
     };
 
     return (
-        <div className="container">
-            <form onSubmit={handleLogin} className="mt-5">
+        <div className="container card mt-5" style={{ backgroundColor: "#e3f0fa" }}>
+            <h2>Log In</h2>
+            <form onSubmit={handleLogin} className="mt-1">
                 <div className="form-group mb-3">
                     <label htmlFor="username">Username</label>
                     <input
@@ -39,7 +40,7 @@ function LoginForm() {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
-                <button type="submit" className="btn btn-primary">Login</button>
+                <button type="submit" className="btn btn-primary">Log In</button>
             </form>
         </div>
     );

@@ -43,13 +43,14 @@ const Employee = (props) => {
         }, [props.data]);
 
     return (
-        <div className="card" style={{ flex: '1', minWidth: '300px', maxWidth: '45%' }}>
+        <div className="card shadow" style={{ flex: '1', minWidth: '300px', maxWidth: '45%', backgroundColor: "#e3f0fa" }}>
             <div className="card-body">
             {profilePic && (
                     <img
+                        className="shadow"
                         src={profilePic}
                         alt="User Profile"
-                        style={{ width: "100px", height: "100px", borderRadius: "50%", marginBottom: "10px" }}
+                        style={{ width: "100px", height: "100px", borderRadius: "50%", border: "3px solid white", marginBottom: "10px" }}
                     />
                 )}
                 <h4 className="card-title">{props?.data.first_name} {props?.data.last_name}</h4>
@@ -58,7 +59,7 @@ const Employee = (props) => {
                 <div className="card-text">Location: {props?.data.location}</div>
                 <div className="card-text">Job Role: {props?.data.job}</div>
                 <div className="card-text">Salary: {props?.data.salary ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(props?.data.salary) : '$******'}</div>
-                <div className="card-text">Predicted Salary: {flaskData?.prediction ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(flaskData.prediction) : 'Loading...'}</div>
+                <div className="card-text">Predicted Salary: {flaskData?.prediction ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(flaskData.prediction) : <div className="spinner-grow spinner-grow-sm ms-1" role="status"><span className="sr-only"></span></div>}</div>
             </div>
             
         </div>
