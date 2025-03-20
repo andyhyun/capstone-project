@@ -26,7 +26,7 @@ const Employee = (props) => {
             }
         };
         fetchData();
-    }, [props.currentPage]);
+    }, [props.data]);
 
     return (
         <div className="card" style={{ flex: '1', minWidth: '300px', maxWidth: '45%' }}>

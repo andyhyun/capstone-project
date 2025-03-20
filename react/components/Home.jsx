@@ -52,7 +52,7 @@ const Home = (props) => {
                     <Employee key={employee.id} data={employee} currentPage={currentPage} />
                 ))
             }
-            <Search setData={setData}/>
+            <Search setData={setData} currentPage={currentPage} />
             <div style={{ marginTop: "20px", textAlign: "center" }}>
                 <button onClick={prevPage} disabled={currentPage === 1}>
                     Previous

@@ -52,6 +52,7 @@ app.post('/api/employees', async (req, res) => {
     try {
         const query = `
             SELECT
+                id,
                 username,
                 first_name,
                 last_name,
@@ -86,6 +87,7 @@ app.post('/api/employees/search', async (req, res) => {
     try {
         const query = `
             SELECT
+                id,
                 username,
                 first_name,
                 last_name,

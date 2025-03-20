@@ -9,7 +9,7 @@ const Search = (props) => {
         e.preventDefault();
         fetch("http://localhost:3000/api/employees/search", {
             method: "POST",
-            body: JSON.stringify({ searchTerm, id: user.id }),
+            body: JSON.stringify({ searchTerm, id: user.id, page: props.currentPage }),
             headers: {
                 "Content-Type": "application/json",
             },
