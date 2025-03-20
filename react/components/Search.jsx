@@ -31,7 +31,7 @@ const Search = (props) => {
     };
 
     return (
-        <form className="d-flex" role="search" onSubmit={handleSubmit}>
+        <form style={{ margin: "20px 0" }} className="d-flex" role="search" onSubmit={handleSubmit}>
             <input className="form-control me-2" type="search"
                 placeholder="Search" aria-label="Search"
                 value={props.searchTerm} onChange={handleChange} />

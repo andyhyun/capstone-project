@@ -17,7 +17,7 @@ function LoginForm() {
     return (
         <div className="container">
             <form onSubmit={handleLogin} className="mt-5">
-                <div className="form-group">
+                <div className="form-group mb-3">
                     <label htmlFor="username">Username</label>
                     <input
                         type="text"
@@ -28,7 +28,7 @@ function LoginForm() {
                         onChange={(e) => setUsername(e.target.value)}
                     />
                 </div>
-                <div className="form-group">
+                <div className="form-group mb-3">
                     <label htmlFor="password">Password</label>
                     <input
                         type="password"
