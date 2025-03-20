@@ -8,17 +8,18 @@ const Home = (props) => {
     const [data, setData] = useState([])
     const { user } = useAuth();
     const [currentPage, setCurrentPage] = useState(1);
+    const [searchTerm, setSearchTerm] = useState('');
     const employeesPerPage = 10;
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/api/employees`, {
+                const response = await fetch(`http://localhost:3000/api/employees/search`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ id: user.id, is_hr: user.is_hr, page: currentPage }),
+                    body: JSON.stringify({ id: user.id, is_hr: user.is_hr, page: currentPage, searchTerm: searchTerm }),
                 });
                 if (!response.ok) {
                     throw new Error('Data could not be fetched!');
@@ -47,8 +48,8 @@ const Home = (props) => {
     };
 
     return (
-        <div  style={{ backgroundImage: `url(${background})` }}>
-        <Search setData={setData} currentPage={currentPage} />
+        <div>
+        <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} setData={setData} currentPage={currentPage} setCurrentPage={setCurrentPage} />
         <div className="card-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
             {
                 data.map((employee) => (
