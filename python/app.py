@@ -11,6 +11,7 @@ with open('lr.pkl', 'rb') as file:
 
 with open('xe.pkl', 'rb') as file:
     X_encoded = pickle.load(file)
+    X_encoded_cols = X_encoded.columns.tolist()
 
 @app.route('/api/test', methods=['GET'])
 def test():
@@ -19,14 +20,17 @@ def test():
 @app.route('/api/predict', methods=['POST'])
 def predict():
     data = request.get_json(force=True)
-    
-    employee = pd.DataFrame({})
 
-    data_encoded = pd.get_dummies(pd.DataFrame(data))
-    for col in X_encoded.columns:
-        employee[col] = [False]
-        if col in data_encoded.columns:
-            employee[col] = [True]
+    employee = pd.get_dummies(pd.DataFrame(data))
+    employee = employee.reindex(columns=X_encoded_cols).fillna(0.00)
+    
+    # employee = pd.DataFrame({})
+
+    # data_encoded = pd.get_dummies(pd.DataFrame(data))
+    # for col in X_encoded.columns:
+    #     employee[col] = [False]
+    #     if col in data_encoded.columns:
+    #         employee[col] = [True]
 
     prediction = model.predict(employee)
 
