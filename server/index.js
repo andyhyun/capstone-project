@@ -72,10 +72,10 @@ app.post('/api/employees', async (req, res) => {
                     ) AS is_working_hr
                 FROM employees
             ) temp
-            LIMIT 10
+            LIMIT 12
             OFFSET $4;
         `;
-        const result = await pool.query(query, [id, id, id, 10 * (page - 1)]);
+        const result = await pool.query(query, [id, id, id, 12 * (page - 1)]);
         res.status(200).json(result.rows);
     } catch (err) {
         console.error(err);
@@ -110,9 +110,9 @@ app.post('/api/employees/search', async (req, res) => {
             ) temp
             WHERE
                 CONCAT(first_name, ' ', last_name) LIKE $4
-            LIMIT 10 OFFSET $5;
+            LIMIT 12 OFFSET $5;
         `;
-        const result = await pool.query(query, [id, id, id, `%${searchTerm}%`, 10 * (page - 1)]);
+        const result = await pool.query(query, [id, id, id, `%${searchTerm}%`, 12 * (page - 1)]);
         res.status(200).json(result.rows);
     } catch (err) {
         console.error(err);

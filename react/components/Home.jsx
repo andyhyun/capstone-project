@@ -9,7 +9,7 @@ const Home = (props) => {
     const { user } = useAuth();
     const [currentPage, setCurrentPage] = useState(1);
     const [searchTerm, setSearchTerm] = useState('');
-    const employeesPerPage = 10;
+    const employeesPerPage = 12;
 
     useEffect(() => {
         const fetchData = async () => {
